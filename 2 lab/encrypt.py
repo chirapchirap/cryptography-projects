@@ -7,11 +7,6 @@ def encrypt(filename, key):
                 temp_byte = byte_array[key[0][i]-1]
                 byte_array[key[0][i]-1] = byte_array[key[1][i]-1]
                 byte_array[key[1][i]-1] = temp_byte
-        else:
-            for i in range(len(byte_array) - 1):
-                temp_byte = byte_array[key[0][i]-1]
-                byte_array[key[0][i]-1] = byte_array[key[1][i]-1]
-                byte_array[key[1][i]-1] = temp_byte
         encrypted_data.append(byte_array)
     write_file_data(filename, encrypted_data)
 
@@ -31,3 +26,8 @@ def write_file_data(filename, encrypted_data):
     with open(filename, "wb") as file:
         for byte_array in encrypted_data:
             file.write(byte_array)
+
+
+
+
+

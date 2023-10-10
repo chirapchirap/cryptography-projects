@@ -3,10 +3,7 @@ def encrypt(filename, key):
     encrypted_data = []
     for byte_array in file_data:
         if len(byte_array) == 6:
-            for i in range(6):
-                temp_byte = byte_array[key[0][i]-1]
-                byte_array[key[0][i]-1] = byte_array[key[1][i]-1]
-                byte_array[key[1][i]-1] = temp_byte
+            byte_array = bytes(byte_array[key[1][i] - 1] for i in range(6))
         encrypted_data.append(byte_array)
     write_file_data(filename, encrypted_data)
 

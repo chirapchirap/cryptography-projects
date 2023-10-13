@@ -1,9 +1,7 @@
 # а	 б	в	г	д	е	ж	з	и	й	к	л	м	н	о	п	р	с	т	у	ф	х	ц	ч	ш	щ	ъ	ы	ь	э	ю	я
 # 0	 1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31
-from count_symbols_frequency import _get_symbol_frequency
+from getters import _get_symbol_frequency, _get_key
 from affine_cipher_cryptanalysis import _make_cryptoanalysis_affine_cipher
-from cipher_text import encrypt
-from decrypt_with_key import _get_key
 
 # Наша кодировка
 encoding = [

@@ -1,6 +1,6 @@
 import sys
 from math import gcd as coprime
-from decrypt_with_key import _get_key
+from getters import _get_key
 
 
 def _make_cryptoanalysis_affine_cipher(text, encoding, mod,

@@ -3,16 +3,11 @@ from func_package import get_s_block_row_and_column, get_row_and_value, wrap_str
 
 
 def encrypt(filename):
-    file_data = read_file_data(filename)
-    binary_file_code = list(map(convert_hex_to_bin, file_data))
-    bits_seq = ''.join(binary_file_code)
-    wrapped_bits_seq = wrap_file_bits_by_6(bits_seq)
+    wrapped_bits_seq = wrap_file_bits_by_6(''.join(map(convert_hex_to_bin, read_file_data(filename))))
     popped_data = wrapped_bits_seq.pop() if len(wrapped_bits_seq[-1]) < 6 else ''
-    rows_and_cols = list(map(get_s_block_row_and_column, wrapped_bits_seq))
-    rows_and_encrypted_cols = list(map(get_row_and_value, rows_and_cols))
-    encrypted_bits = ''.join(map(make_bin_from_rows_and_cols, rows_and_encrypted_cols))
-    encrypted_bytes = list(map(convert_binary_to_decimal, wrap_str_by_8(encrypted_bits+popped_data)))
-    write_file_data(filename, encrypted_bytes)
+    write_file_data(filename, list(
+        map(convert_binary_to_decimal, wrap_str_by_8(''.join(map(make_bin_from_rows_and_cols,
+            map(get_row_and_value, map(get_s_block_row_and_column, wrapped_bits_seq))))+popped_data))))
 
 
 def read_file_data(filename):     # Чтение файла

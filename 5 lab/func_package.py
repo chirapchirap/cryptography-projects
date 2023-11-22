@@ -1,6 +1,3 @@
-from textwrap import wrap
-import chardet
-
 a, b = 2, 5
 
 s_block_1 = tuple([
@@ -20,16 +17,13 @@ def convert_int_to_bin(x):  # число в бинарный вид
 
 
 def wrap_file_bits_by_6(bits):  # разбиение последовательности битов по 6
-    wrapped_code = wrap(
-        ''.join([value for index, value in enumerate(bits)]), 6)
-    if len(wrapped_code[-1]) < 6:
-        wrapped_code[-1] = wrapped_code[-1].zfill(6)
+    x=6
+    wrapped_code=[bits[y-x:y] for y in range(x, len(bits)+x,x)]
     return wrapped_code
 
 def wrap_str_by_8(bits): # разбиение последовательности битов по 8
-    wrapped_code = wrap(bits, 8)
-    if len(wrapped_code[-1]) < 6:
-        wrapped_code[-1] = wrapped_code[-1].zfill(6)
+    x=8
+    wrapped_code=[bits[y-x:y] for y in range(x, len(bits)+x,x)]
     return wrapped_code
 
 def convert_binary_to_decimal(x): # бинарный в десятичный 
@@ -37,21 +31,23 @@ def convert_binary_to_decimal(x): # бинарный в десятичный
 
 
 def get_s_block_row_and_column(x):  # получение строки и столбца из 6 бит
-    row = int(
-        ''.join([value for index, value in enumerate(x) if index in (a-1, b-1)]), 2)
-    column = int(
-        ''.join([value for index, value in enumerate(x) if index not in (a-1, b-1)]), 2)
+    row = int(''.join([value for index, value in enumerate(x) if index in (a-1, b-1)]), 2)
+    column = int(''.join([value for index, value in enumerate(x) if index not in (a-1, b-1)]), 2)
     return [row, column]
 
 
-def search_in_s_block(pos):  # поиск значения в блоке
+def get_row_and_value(pos):  # поиск значения в блоке
     return [pos[0], s_block_1[pos[0]][pos[1]]]
+
+def get_row_and_col_index(pos):
+    return [pos[0], s_block_1[pos[0]].index(pos[1])]
 
 
 def make_bin_from_rows_and_cols(pos):  # замена координат в s_блоке в бинарном виде
     bin_row = bin(pos[0])[2:].zfill(2)
     bin_col = bin(pos[1])[2:].zfill(4)
     bits_seq = ['0']*6
+    if b < a: bin_row = bin_row[::-1]
     row = (value for index, value in enumerate(bin_row))
     col = (value for index, value in enumerate(bin_col))
     for index, value in enumerate(bits_seq):
@@ -60,9 +56,3 @@ def make_bin_from_rows_and_cols(pos):  # замена координат в s_б
         else:
             bits_seq[index] = str(next(col))
     return ''.join(bits_seq)
-
-def get_file_encoding(filename): # получение кодировки файла
-    rawdata = open(filename, 'rb').read()
-    result = chardet.detect(rawdata)
-    charenc = result['encoding']
-    return charenc

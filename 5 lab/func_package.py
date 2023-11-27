@@ -1,4 +1,4 @@
-a, b = 4, 3
+a, b = 1, 3
 
 s_block_1 = tuple([
     [14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7],
@@ -14,12 +14,12 @@ s_block_2 = tuple([
     [13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9]
     ])
 
-def convert_hex_to_bin(x):  # non-ascii символы в бинарный вид
+def convert_string_hex_to_bin(x):  # non-ascii символы в бинарный вид
     return bin(ord(x))[2:].zfill(8)
 
 
 def convert_int_to_bin(x):  # число в бинарный вид
-    return int(x, 2)
+    return bin(x)[2:].zfill(8)
 
 
 def wrap_file_bits_by_6(bits):  # разбиение последовательности битов по 6

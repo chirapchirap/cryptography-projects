@@ -7,7 +7,7 @@ text = 'Разворачивайтесь в марше! Словесной не 
 modified_text = prepare_text(text)
 
 for k in range(1, iterations+1):
-    k_grams_list = [''.join(text[i-k:i]) for i in range(k, len(text)+k,k)]
+    k_grams_list = [''.join(modified_text[i-k:i]) for i in range(k, len(modified_text)+k,k)]
     H_outputs.append(count_entropy(k_grams_list)/k)
     print(f'k = {k}: E = {H_outputs[k-1]/k}')
 
